@@ -7,7 +7,7 @@ const assert = require('node:assert/strict');
 const archiver = require('archiver');
 const root = path.resolve(__dirname, '..');
 const dist = path.join(root, 'distribution');
-const out = path.join(root, 'artifacts', 'rc3');
+const out = path.join(root, 'artifacts', 'rc3-clean');
 const manifest = JSON.parse(fs.readFileSync(path.join(dist, 'manifest.json'), 'utf8'));
 const expected = JSON.parse(fs.readFileSync(path.join(root, 'source/manifest.json'), 'utf8'));
 assert.equal(manifest.version_name, '1.3.6-site-router-rc3');
@@ -29,7 +29,7 @@ for (const file of walk(path.join(dist, 'js')).filter(f => f.endsWith('.js'))) {
   new vm.Script(fs.readFileSync(file, 'utf8'), {filename: file});
 }
 fs.copyFileSync(path.join(root, 'LICENSE'), path.join(dist, 'LICENSE'));
-fs.copyFileSync(path.join(root, 'README-CUSTOM-VI.md'), path.join(dist, 'README-CUSTOM-VI.md'));
+fs.copyFileSync(path.join(root, 'readme.md'), path.join(dist, 'README.md'));
 assert.equal(fs.readFileSync(path.join(dist, 'NOTICE-CUSTOM.txt'), 'utf8'),
   fs.readFileSync(path.join(root, 'source/NOTICE-CUSTOM.txt'), 'utf8'), 'Rebuild after changing notice');
 fs.mkdirSync(out, {recursive: true});

@@ -1,65 +1,16 @@
-# Getting Started
+# ProtonVPNFreemium
 
-You'll need to have the following environment to work with this project:
+Bản tùy biến không chính thức của Proton VPN extension, bổ sung các tiện ích xử lý cục bộ cho tài khoản Free.
 
-- Node.js LTS
+## Tính năng
 
-That's all folks!
+- **VPN theo site:** Include/Exclude theo domain, tùy chọn áp dụng cho subdomain.
+- **Thêm site hiện tại:** một nút để thêm đúng hostname vào danh sách dùng VPN.
+- **Chọn vị trí:** chọn quốc gia, thành phố và máy chủ mà tài khoản có quyền truy cập.
+- **Favorites:** lưu quốc gia hoặc máy chủ yêu thích, kết nối nhanh và xóa từng mục.
+- **Recents cho Free:** lưu tối đa 30 lựa chọn kết nối gần đây.
+- **Nhập/xuất JSON:** sao lưu quy tắc và Favorites; nhập gộp, giữ cấu hình hiện tại.
+- **Auto-connect:** tùy chọn tự kết nối khi mở Chrome.
+- **WebRTC protection:** tùy chọn hạn chế rò IP qua WebRTC.
 
-# Build for Firefox
-
-```
-npm install
-npm run build-ff
-```
-
-Auto-reload on change:
-```
-npm run watch-ff
-```
-
-# Build for Chrome
-
-```
-npm install
-npm run build
-```
-
-Auto-reload on change:
-```
-npm run watch
-```
-
-Main config values are exposed in `config.js` at the root of the project
-for QA and dev to conveniently create custom-builds.
-
-# Build exact version from ZIP
-
-To get the exact same build from source.zip, extract its content in an empty
-folder then run:
-
-Firefox:
-```
-npm ci && npm run pack-ff
-```
-
-Will generate: `vpn-proton-firefox.zip`
-
-Chrome:
-```
-npm ci && npm run pack
-```
-
-Will generate: `vpn-proton-chrome.zip`
-
-All steps including unzipping and dependencies install:
-```
-apt-get install zip
-unzip source.zip -d vpn-bex
-cd vpn-bex
-npm ci
-npm run pack-ff
-mv vpn-proton-firefox.zip ../vpn-proton-firefox.zip
-cd ..
-rm -rf vpn-bex
-```
+Vẫn cần đăng nhập Proton; các tính năng này không mở quyền truy cập máy chủ trả phí.

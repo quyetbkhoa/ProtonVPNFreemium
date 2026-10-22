@@ -21,3 +21,12 @@ artifacts/
 logs/
 build-local.log
 audit-*-local.json
+
+# Local continuity, QA and legacy documentation
+.ai/
+tests/
+doc/
+scripts/preview-local-tools.cjs
+README-CUSTOM-VI.md
+changelog.md
+commit-time.txt
