@@ -5,6 +5,7 @@ import {FeatureWrapper} from './FeatureWrapper';
 import {getFeatureConfig} from './getFeatureConfig';
 import type {StoredWebsiteFilterList} from '../WebsiteFilter';
 import type {LocallyStoredFeature} from './LocallyStoredFeature';
+import {SplitTunnelingMode} from '../WebsiteFilter';
 
 export class SplitTunneling
 	extends FeatureWrapper<StoredWebsiteFilterList>
@@ -24,7 +25,7 @@ export class SplitTunneling
 	}
 
 	getDefault(): StoredWebsiteFilterList {
-		return {value: []};
+		return {enabled: true, mode: SplitTunnelingMode.Include, value: []};
 	}
 
 	getCacheItem() {

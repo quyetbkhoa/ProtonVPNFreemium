@@ -1,0 +1,27 @@
+VPN Site Router 1.3.6-site-router-rc1
+
+Unofficial personal fork of ProtonVPN/proton-vpn-browser-extension.
+Not affiliated with, endorsed by, or supported by Proton.
+Upstream source: https://github.com/ProtonVPN/proton-vpn-browser-extension
+Upstream revision: 71d7d86f164a2ee8e50ce5a389c9e5cbe0fd6883
+License: GNU GPL v3; see LICENSE and the accompanying source archive.
+
+Changes: allow local domain split routing regardless of account tier; default
+new configurations to enabled Include mode; distinguish this local build.
+Server access, login and account tier are unchanged.
+This is a replacement extension, not a companion controller.
+
+The upstream public manifest key and app ID are retained for compatibility with
+the upstream account sign-in callback. The original and this build cannot be
+installed together in one Chrome profile. Test in a separate Chrome profile.
+No private signing key is included. This does not make the build official.
+
+Routing is by destination hostname, not originating tab or file type. Downloads
+from an included host also use VPN. Third-party page resources need their own
+domain rules. Upstream Proton service-domain exceptions remain in Include mode.
+Turning split tunneling OFF restores whole-browser VPN behavior when connected.
+Disconnecting VPN restores normal browsing; this is not a permanent kill switch.
+Upstream permissions, telemetry and crash-report behavior are retained.
+
+Build and offline routing tests are not proof of live sign-in, connection,
+privacy, DNS/WebRTC behavior, reconnect or download-speed improvements.

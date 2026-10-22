@@ -1443,7 +1443,7 @@ export const start = async (area: HTMLElement) => {
 					);
 				}
 			},
-			userTier <= 0,
+			false, // Local domain routing is available on every account tier.
 		);
 	}
 

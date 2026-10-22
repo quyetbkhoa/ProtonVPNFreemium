@@ -11,10 +11,11 @@ export interface SplitTunnelingConfig {
 }
 
 export const getSplitTunnelingConfig = (
-	userTier: number,
+	_userTier: number,
 	splitTunneling: StoredWebsiteFilterList,
 ): SplitTunnelingConfig =>
-	splitTunneling.enabled !== false && userTier > 0
+	// Domain routing is local in this custom build. Server entitlements stay unchanged.
+	splitTunneling.enabled !== false
 		? {
 				mode: splitTunneling.mode || defaultSplitTunnelingMode,
 				filteredDomains: getDomainFilterList(

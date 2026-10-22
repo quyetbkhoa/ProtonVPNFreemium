@@ -15,3 +15,9 @@ source.zip
 
 # MacOS
 *.DS_Store
+
+# Local build evidence and deliverables
+artifacts/
+logs/
+build-local.log
+audit-*-local.json
