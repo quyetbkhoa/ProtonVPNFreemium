@@ -64,4 +64,5 @@ export const paidOnly = false;
 
 export const debug = true;
 
-export const simplifiedUi = true;
+// Use the existing full location picker, including entitled Free servers.
+export const simplifiedUi = false;

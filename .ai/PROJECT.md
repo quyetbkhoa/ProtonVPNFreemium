@@ -16,6 +16,11 @@ manifest key/app ID for account callback compatibility; install in isolated Chro
 profile, replacing upstream only within that profile. Clearly label unofficial.
 No companion extension: upstream disconnects if another extension takes proxy.
 
+rc2: user requests manual country selection without using Swift fork. Enable the
+upstream full picker for all tiers; select countries/cities/servers with entitled
+servers, preserve paid-only upgrade actions. Fix city-level entitlement display
+per city rather than applying one shared result across all cities in a section.
+
 Acceptance: XDA selected routes through VPN, an unrelated download domain routes
 direct; account sign-in, restart, reconnect and live IP checks must be observed.
 Domain rules do not isolate tabs or bypass downloads on the same selected host.

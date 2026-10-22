@@ -104,7 +104,6 @@ const formatGroups = (
 	countryCode: string,
 	predicate: (servers: Logical[]) => Logical[],
 	secureCore: boolean,
-	upgradeNeeded: boolean,
 	groups: (CountryItem | undefined)[],
 	showFlag = false,
 ): string[] =>
@@ -128,6 +127,7 @@ const formatGroups = (
 			)
 			.filter(({list}) => list) as {group: CountryItem; list: string}[]
 	).map(({group, list}) => {
+		const upgradeNeeded = needUpgrade(userContext.tier, group);
 		if (group.type === 'secureCore') {
 			return list;
 		}
@@ -231,7 +231,6 @@ export const getServerGroups = (
 			countryCode,
 			predicate,
 			secureCore,
-			items.every((g) => needUpgrade(userContext.tier, g)),
 			list,
 			showFlagOnGroups,
 		);

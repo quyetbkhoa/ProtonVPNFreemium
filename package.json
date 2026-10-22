@@ -3,6 +3,7 @@
 	"private": true,
 	"scripts": {
 		"test:site": "node --test tests/site-routing.test.cjs",
+		"test:locations": "node --test tests/location-picker.test.cjs",
 		"package:custom": "node scripts/package-custom.cjs",
 		"check": "ts-node test/check.ts",
 		"lint": "eslint . && run-p lint:*",
