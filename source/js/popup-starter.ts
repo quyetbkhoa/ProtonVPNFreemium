@@ -94,6 +94,8 @@ import {locationListOrSearch} from './components/locationListOrSearch';
 import {via} from './components/via';
 import {locationList} from './components/locationList';
 import {configureSplitTunneling} from './components/configureSplitTunneling';
+import {configureLocalTools} from './components/configureLocalTools';
+import {storagePrefix} from './tools/storage';
 import {getSplitTunnelingConfig} from './vpn/getSplitTunnelingConfig';
 import {
 	loadAllFeatures,
@@ -658,6 +660,7 @@ export const start = async (area: HTMLElement) => {
 		);
 	};
 
+	let refreshLocalTools = () => {};
 	let refresh = () => {
 		locationList(
 			countries,
@@ -775,6 +778,7 @@ export const start = async (area: HTMLElement) => {
 		server?: ServerSummary,
 		connecting = false,
 	) => {
+		refreshLocalTools();
 		if (!server) {
 			server = connectionState?.server;
 		}
@@ -1348,7 +1352,7 @@ export const start = async (area: HTMLElement) => {
 	const search = area.querySelector('#search-input') as HTMLInputElement;
 
 	if (search) {
-		search.focus();
+		search.focus({preventScroll: true});
 		search.onkeyup = (e) => {
 			if (e.key === 'Enter' || e.keyCode === 13) {
 				servers.querySelector<HTMLElement>('.server, .connect-option')?.click();
@@ -1406,7 +1410,7 @@ export const start = async (area: HTMLElement) => {
 		setUpToggleButtonForFeature(features.autoConnect);
 		setUpToggleButtonForFeature(features.telemetry);
 		setUpToggleButtonForFeature(features.recents, {
-			upgradeNeeded: isFreeTier,
+			upgradeNeeded: false,
 			refresh: (newValue) => {
 				if (!newValue) {
 					forgetLastChoices();
@@ -1448,6 +1452,37 @@ export const start = async (area: HTMLElement) => {
 	}
 
 	configureModalButtons(area.querySelector<HTMLDivElement>('#modals')!);
+	const localTools = configureLocalTools(area, {
+		user: userContext,
+		getLogicals: () => logicals,
+		getServer: () => state.connected ? connectionState.server : undefined,
+		getRules: () => features.splitTunneling.feature.getConfig(),
+		isControllable: () => features.splitTunneling.feature.isControllable(),
+		async save(rules, favorites) {
+			if (rules && !features.splitTunneling.feature.isControllable()) throw new Error('Quy tắc đang được quản trị viên quản lý.');
+			const updates: Record<string, object> = {};
+			if (rules) updates[storagePrefix + 'split-tunneling'] = {...rules, time: Date.now()};
+			if (favorites) updates[storagePrefix + 'site-router-favorites'] = {value: favorites, time: Date.now()};
+			// One storage write commits an imported rules+favorites bundle together.
+			await chrome.storage.local.set(updates);
+			if (rules) {
+				features.splitTunneling.config = rules;
+				area.dispatchEvent(new CustomEvent('site-router-rules-updated', {detail: rules}));
+				if (state.connected) {
+					try {
+						await sendMessageToBackground(SettingChange.BYPASS_LIST, getSplitTunnelingConfig(userTier, rules));
+					} catch {
+						throw new Error('Đã lưu quy tắc nhưng VPN chưa xác nhận áp dụng. Hãy ngắt và kết nối lại.');
+					}
+				}
+			}
+		},
+		async connect(logical) {
+			setLastChoiceWithCurrentOptions({connected: true, logicalId: logical.ID});
+			await connectToServer(logical);
+		},
+	});
+	refreshLocalTools = localTools.refresh;
 	configureRatingModalButtons(rateUsModal);
 
 	watchBroadcastMessages({

@@ -21,6 +21,11 @@ upstream full picker for all tiers; select countries/cities/servers with entitle
 servers, preserve paid-only upgrade actions. Fix city-level entitlement display
 per city rather than applying one shared result across all cities in a section.
 
+rc3: user requested all local utilities discussed: Free Recents, 30-choice history,
+country/server Favorites, current-site Include action, and validated JSON backup
+import/export. Preserve old rules, opt-outs, entitlements and rc1/rc2 artifacts.
+Reuse upstream auto-connect/WebRTC settings; do not reset user choices.
+
 Acceptance: XDA selected routes through VPN, an unrelated download domain routes
 direct; account sign-in, restart, reconnect and live IP checks must be observed.
 Domain rules do not isolate tabs or bypass downloads on the same selected host.

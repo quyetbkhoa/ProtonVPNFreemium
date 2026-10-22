@@ -68,7 +68,7 @@ export const configureSplitTunneling = (
 		});
 
 	list ??= feature.config;
-	const domainManager = new SplitTunnelingDomainManager(list);
+	let domainManager = new SplitTunnelingDomainManager(list);
 
 	const storeList = () => {
 		if (!feature.feature.isControllable()) {
@@ -276,6 +276,13 @@ export const configureSplitTunneling = (
 
 	refreshEnabled();
 	refreshMode(true);
+	area.addEventListener('site-router-rules-updated', (event) => {
+		domainManager = new SplitTunnelingDomainManager((event as CustomEvent<StoredWebsiteFilterList>).detail);
+		refreshEnabled();
+		refreshMode();
+		toggleAddForm(false);
+		renderDomainList();
+	});
 
 	if (upgradeNeeded) {
 		document

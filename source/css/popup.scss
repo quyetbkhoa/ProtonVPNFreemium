@@ -3,6 +3,32 @@
 @import "./dark-theme";
 @import "./spinner";
 
+#site-router-tools {
+	padding: 0.75rem;
+	border-block: 1px solid rgb(127 127 127 / 30%);
+	font-size: 0.875rem;
+	button, select, input, summary { min-height: 44px; max-width: 100%; }
+	button { white-space: normal; overflow-wrap: anywhere; padding: 0.5rem; }
+	button:not(.primary-button), select {
+		background: var(--dark-gray);
+		color: var(--primary-contrast);
+		border: 1px solid var(--middle-gray);
+		border-radius: 8px;
+	}
+	> button, select { width: 100%; }
+	summary { cursor: pointer; padding-block: 0.75rem; display: list-item; list-style: disclosure-closed inside; }
+	details[open] > summary { list-style: disclosure-open inside; }
+	p { margin-block: 0.5rem; overflow-wrap: anywhere; }
+	.local-status { min-height: 1.5em; }
+	.local-actions, .local-favorite-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block: 0.5rem; }
+	.local-actions > *, .local-favorite-row > :first-child { flex: 1 1 120px; min-width: 0; }
+	.local-favorites { max-height: 220px; overflow-y: auto; }
+	.local-file-label { display: flex; flex-direction: column; gap: 0.25rem; }
+	.local-actions > .local-file-label { flex-basis: 100%; }
+	input[type="file"] { width: 100%; }
+	button:disabled { opacity: 0.55; cursor: default; }
+}
+
 * {
 	font-family: sans-serif;
 	box-sizing: border-box;

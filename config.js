@@ -22,7 +22,7 @@ module.exports = {
 		'[::1]',
 		'<local>',
 	],
-	lastChoicesMemoryLimit: 5,
+	lastChoicesMemoryLimit: 30,
 	signupEnabled: true,
 	/**
 	 * For now TOR is disabled, server-side proxy requests won't be sent to the TOR network

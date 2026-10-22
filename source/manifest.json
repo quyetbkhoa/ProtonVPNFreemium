@@ -4,7 +4,7 @@
 	"name": "VPN Site Router - Unofficial Proton fork",
 	"description": "Unofficial local build: route selected domains through your Proton VPN connection. Not affiliated with Proton.",
 	"version": "1.3.6",
-	"version_name": "1.3.6-site-router-rc2",
+	"version_name": "1.3.6-site-router-rc3",
 	"minimum_chrome_version": "108.0",
 	"icons": {
 		"16": "img/icon-16.png",

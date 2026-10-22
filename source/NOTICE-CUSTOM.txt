@@ -1,4 +1,4 @@
-VPN Site Router 1.3.6-site-router-rc2
+VPN Site Router 1.3.6-site-router-rc3
 
 Unofficial personal fork of ProtonVPN/proton-vpn-browser-extension.
 Not affiliated with, endorsed by, or supported by Proton.
@@ -9,6 +9,8 @@ License: GNU GPL v3; see LICENSE and the accompanying source archive.
 Changes: allow local domain split routing regardless of account tier; default
 new configurations to enabled Include mode; enable the full location picker
 for entitled servers on every tier; distinguish this local build.
+rc3: Free Recents, 30 history entries, local country/server Favorites, validated
+JSON rule/favorite backups and a current-site Include action. No Swift code used.
 Server access, login and account tier are unchanged.
 This is a replacement extension, not a companion controller.
 

@@ -139,3 +139,17 @@ test('Countries without any available entitled server fail selection instead of 
   const node = parse('<button data-exitCountry="DE"></button>').querySelector('button');
   assert.throws(() => selected(node, countries), /Cannot find the best one/);
 });
+test('Free fastest/random location actions can select entitled Free inventory', () => {
+  const {countries} = fixture([server('JP'), server('DE', 1, {Score: 1})]);
+  for (const pick of ['fastest', 'random']) {
+    const button = parse(`<button data-pick="${pick}"></button>`).querySelector('button');
+    assert.equal(selected(button, countries).Tier, 0);
+  }
+});
+test('Replayed server ID cannot connect a paid or offline server', () => {
+  const {countries} = fixture([server('DE', 1), server('JP', 0, {_up: false})]);
+  for (const id of ['DE-1', 'JP-0']) {
+    const button = parse(`<button data-id="${id}"></button>`).querySelector('button');
+    assert.equal(selected(button, countries), undefined);
+  }
+});

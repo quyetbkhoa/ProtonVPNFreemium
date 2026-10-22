@@ -4,7 +4,7 @@ import type {Choice} from '../vpn/lastChoice';
 import type {Toggle} from '../vpn/features/Toggle';
 import type {AllFeatures} from '../vpn/features/AllFeatures';
 import type {CountryList} from './countryList';
-import {getLogicalById} from '../vpn/getLogicals';
+import {getLogicalById, isLogicalUp} from '../vpn/getLogicals';
 import {Feature} from '../vpn/Feature';
 import {
 	getAllLogicals,
@@ -168,7 +168,12 @@ export const getLogicalFromButton = (
 
 	if (id) {
 		return {
-			getLogical: () => getLogicalById(id),
+			getLogical: () => {
+				const logical = getLogicalById(id);
+				return logical && logical.Tier <= userContext.tier &&
+					isLogicalUp(logical, userContext.country, userContext.location)
+					? logical : undefined;
+			},
 			choice: {logicalId: id},
 		};
 	}
@@ -212,7 +217,7 @@ export const getLogicalFromButton = (
 			getLogical: () =>
 				requireBestLogical(
 					filterLogicalsWithCurrentFeatures(
-						logicals.filter((logical) => logical.Tier > 0),
+					logicals.filter((logical) => userContext.tier <= 0 || logical.Tier > 0),
 						userContext.tier,
 						baseSecureCoreFilter,
 					),
@@ -228,7 +233,7 @@ export const getLogicalFromButton = (
 			getLogical: () =>
 				requireRandomLogical(
 					filterLogicalsWithCurrentFeatures(
-						logicals.filter((logical) => logical.Tier > 0),
+					logicals.filter((logical) => userContext.tier <= 0 || logical.Tier > 0),
 						userContext.tier,
 						baseSecureCoreFilter,
 					),

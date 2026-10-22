@@ -7,10 +7,10 @@ const assert = require('node:assert/strict');
 const archiver = require('archiver');
 const root = path.resolve(__dirname, '..');
 const dist = path.join(root, 'distribution');
-const out = path.join(root, 'artifacts', 'rc2');
+const out = path.join(root, 'artifacts', 'rc3');
 const manifest = JSON.parse(fs.readFileSync(path.join(dist, 'manifest.json'), 'utf8'));
 const expected = JSON.parse(fs.readFileSync(path.join(root, 'source/manifest.json'), 'utf8'));
-assert.equal(manifest.version_name, '1.3.6-site-router-rc2');
+assert.equal(manifest.version_name, '1.3.6-site-router-rc3');
 assert.equal(manifest.name, expected.name);
 assert.equal(manifest.key, expected.key);
 const id = crypto.createHash('sha256').update(Buffer.from(manifest.key, 'base64'))
@@ -47,8 +47,8 @@ function zip(destination, add) {
   });
 }
 (async () => {
-  const binary = path.join(out, 'VPN-Site-Router-rc2.zip');
-  const source = path.join(out, 'VPN-Site-Router-rc2-source.zip');
+  const binary = path.join(out, 'VPN-Site-Router-rc3.zip');
+  const source = path.join(out, 'VPN-Site-Router-rc3-source.zip');
   await zip(binary, a => a.directory(dist, false));
   const files = execFileSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], {cwd: root, encoding: 'utf8'}).split('\0').filter(Boolean).sort();
   const sourceFiles = Object.fromEntries(files.map(file => [file,
